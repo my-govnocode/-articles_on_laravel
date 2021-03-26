@@ -4,6 +4,9 @@
 
 @section('contents')
     <h3>Статьи</h3>
+    @if (Session::has('success'))
+        <h4 style="color: green;">{{ Session::get('success') }}</h4>
+    @endif
     @foreach($articles as $article)
         <div class="col-md-6">
             <div class="card flex-md-row mb-4 shadow-sm h-md-250">

@@ -13,7 +13,7 @@ Route::get('/articles/{article:code}', [ArticlesController::class, 'show' ])->na
 Route::get('/articles/{article:code}/edit', [ArticlesController::class, 'edit' ]);
 
 Route::post('/articles/', [ArticlesController::class, 'store'])->name('articles');
-Route::patch('/articles/{article:code}', [ArticlesController::class, 'update']);
+Route::patch('/articles/{article:code}', [ArticlesController::class, 'update'])->name('articles.update');
 Route::delete('/articles/{article:code}', [ArticlesController::class, 'destroy']);
 
 Route::get('/about', function () {
