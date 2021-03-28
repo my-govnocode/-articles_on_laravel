@@ -12,7 +12,7 @@
 
                 <h3>Добавить статью</h3>
 
-                <form id="contact-form" method="post" action="{{ route('articles') }}">
+                <form id="contact-form" method="post" action="{{ route('articles.create') }}">
                     @csrf
 
                     @include('layouts.form')

@@ -7,14 +7,14 @@ use App\Http\Controllers\FeedbacksController;
 
 Route::get('/', [ArticlesController::class, 'index']);
 
-Route::get('/articles/', [ArticlesController::class, 'index']);
+Route::get('/articles/', [ArticlesController::class, 'index'])->name('articles');
 Route::get('/articles/create', [ArticlesController::class, 'create' ]);
-Route::get('/articles/{article:code}', [ArticlesController::class, 'show' ])->name('show');
-Route::get('/articles/{article:code}/edit', [ArticlesController::class, 'edit' ]);
+Route::get('/articles/{article:code}', [ArticlesController::class, 'show' ])->name('articles.show');
+Route::get('/articles/{article:code}/edit', [ArticlesController::class, 'edit' ])->name('articles.edit');
 
-Route::post('/articles/', [ArticlesController::class, 'store'])->name('articles');
+Route::post('/articles/', [ArticlesController::class, 'store'])->name('articles.create');
 Route::patch('/articles/{article:code}', [ArticlesController::class, 'update'])->name('articles.update');
-Route::delete('/articles/{article:code}', [ArticlesController::class, 'destroy']);
+Route::delete('/articles/{article:code}', [ArticlesController::class, 'destroy'])->name('articles.destroy');
 
 Route::get('/about', function () {
     return view('about');

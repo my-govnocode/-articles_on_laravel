@@ -21,32 +21,35 @@ class ArticlesController extends Controller
 
     public function create()
     {
-        return view('articles.create');
+        $button = 'Создать';
+        $article = new Article();
+        return view('articles.create', compact(['button', 'article']));
     }
 
     public function store(CreateArticleRequest $request)
     {
         Article::create($request->validated());
 
-        return redirect('/articles/')->with('success', 'Статья успешно создана!');
+        return redirect()->route('articles')->with('success', 'Статья успешно создана!');
     }
 
     public function edit(Article $article)
     {
-        return view('articles.edit', compact('article'));
+        $button = 'Редактировать';
+        return view('articles.edit', compact(['article', 'button']));
     }
 
     public function update(CreateArticleRequest $request, Article $article)
     {
         $article->update($request->validated());
 
-        return redirect('/articles/')->with('success', 'Статья успешно обновлена!');
+        return redirect()->route('articles')->with('success', 'Статья успешно обновлена!');
     }
 
     public function destroy(Article $article)
     {
         $article->delete();
 
-        return redirect('/articles/')->with('success', 'Статья успешно удалена!');
+        return redirect()->route('articles')->with('success', 'Статья успешно удалена!');
     }
 }

@@ -12,7 +12,7 @@
 
                 <h3>Редактировать статью</h3>
 
-                <form id="contact-form" method="post" action="{{ route('show', $article->code) }}">
+                <form id="contact-form" method="post" action="{{ route('articles.show', $article->code) }}">
                     @csrf
                     @method('PATCH')
 
