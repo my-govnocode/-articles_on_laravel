@@ -21,9 +21,8 @@ class ArticlesController extends Controller
 
     public function create()
     {
-        $button = 'Создать';
         $article = new Article();
-        return view('articles.create', compact(['button', 'article']));
+        return view('articles.create', compact('article'));
     }
 
     public function store(CreateArticleRequest $request)
@@ -35,8 +34,7 @@ class ArticlesController extends Controller
 
     public function edit(Article $article)
     {
-        $button = 'Редактировать';
-        return view('articles.edit', compact(['article', 'button']));
+        return view('articles.edit', compact('article'));
     }
 
     public function update(CreateArticleRequest $request, Article $article)
