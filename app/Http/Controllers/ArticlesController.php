@@ -21,14 +21,15 @@ class ArticlesController extends Controller
 
     public function create()
     {
-        return view('articles.create');
+        $article = new Article();
+        return view('articles.create', compact('article'));
     }
 
     public function store(CreateArticleRequest $request)
     {
         Article::create($request->validated());
 
-        return redirect('/articles/');
+        return redirect()->route('articles')->with('success', 'Статья успешно создана!');
     }
 
     public function edit(Article $article)
@@ -36,24 +37,17 @@ class ArticlesController extends Controller
         return view('articles.edit', compact('article'));
     }
 
-    public function update(Article $article)
+    public function update(CreateArticleRequest $request, Article $article)
     {
-        $validate = request()->validate([
-            'code' => 'required|unique:articles,id|regex:/[a-zA-Z0-9_\-]+/',
-            'title' => 'required||between:5,100',
-            'short_message' => 'required|max:255',
-            'message' => 'required',
-        ]);
-        
-        $article->update($validate);
+        $article->update($request->validated());
 
-        return redirect('/articles/');
+        return redirect()->route('articles')->with('success', 'Статья успешно обновлена!');
     }
 
     public function destroy(Article $article)
     {
         $article->delete();
 
-        return redirect('/articles/');
+        return redirect()->route('articles')->with('success', 'Статья успешно удалена!');
     }
 }
