@@ -16,13 +16,20 @@
                     </h3>
                     <div class="mb-1 text-muted">{{$article->created_at->toFormattedDateString()}}</div>
                     <p class="card-text mb-auto">{{$article->short_message}}</p>
+                    @if(!empty($article->tags))
+                        @foreach($article->tags as $tag)
+                            <div>
+                                <a href="/tags/{{$tag->id}}" class="badge badge-secondary">{{ $tag->name }}</a>
+                            </div>
+                        @endforeach
+                    @endif
                     <a href="{{ route('articles.edit', $article->code) }}">Редактировать</a>
                     <form action="{{ route('articles.destroy', $article->code) }}" method="post">
-                    @csrf
-                    @method('DELETE')
-
-                    <button>Удалить</button>
-                </form>                </div>
+                        @csrf
+                        @method('DELETE')
+                        <button>Удалить</button>
+                    </form>               
+                </div>
             </div>
         </div>
     @endforeach

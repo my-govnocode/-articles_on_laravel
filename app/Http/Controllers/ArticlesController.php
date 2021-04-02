@@ -10,13 +10,14 @@ class ArticlesController extends Controller
 {
     public function index(Article $article)
     {
-        $articles = $article->latest()->get();
+        $articles = $article->with('tags')->latest()->get();
         return view('articles.index', compact('articles'));
     }
 
     public function show(Article $article)
     {
-        return view('articles.show', compact('article'));
+        $tags = $article->tags;
+        return view('articles.show', compact('article', 'tags'));
     }
 
     public function create()

@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class Tag extends Model
 {
     use HasFactory;
 
-    public static function scopeCompleted($query)
+    public function articles()
     {
-        return $query->where('completed', 0)->get();
+        return $this->belongsToMany(Article::class, 'tag_article','article_ids','id',  'tag_id', 'id',);
     }
 }
