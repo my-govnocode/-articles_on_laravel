@@ -8,7 +8,7 @@
         <h4 style="color: green;">{{ Session::get('success') }}</h4>
     @endif
     @foreach($articles as $article)
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card flex-md-row mb-4 shadow-sm h-md-250">
                 <div class="card-body d-flex flex-column align-items-start">
                     <h3 class="mb-0">
@@ -16,19 +16,13 @@
                     </h3>
                     <div class="mb-1 text-muted">{{$article->created_at->toFormattedDateString()}}</div>
                     <p class="card-text mb-auto">{{$article->short_message}}</p>
-                    @if(!empty($article->tags))
-                        @foreach($article->tags as $tag)
-                            <div>
-                                <a href="/tags/{{$tag->id}}" class="badge badge-secondary">{{ $tag->name }}</a>
-                            </div>
-                        @endforeach
-                    @endif
+                    @include('layouts.tags', ['tags' => $article->tags])
                     <a href="{{ route('articles.edit', $article->code) }}">Редактировать</a>
                     <form action="{{ route('articles.destroy', $article->code) }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button>Удалить</button>
-                    </form>               
+                    </form>
                 </div>
             </div>
         </div>

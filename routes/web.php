@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\FeedbacksController;
+use App\Http\Controllers\TagsController;
 
 
 Route::get('/', [ArticlesController::class, 'index']);
 
+Route::get('/articles/tags/{tag}', [TagsController::class, 'index'])->name('articles.tags');
 Route::get('/articles/', [ArticlesController::class, 'index'])->name('articles');
 Route::get('/articles/create', [ArticlesController::class, 'create' ])->name('articles.create');
 Route::get('/articles/{article:code}', [ArticlesController::class, 'show' ])->name('articles.show');

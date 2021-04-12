@@ -50,6 +50,18 @@
         </div>
     </div>
     <br>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="form_tags">Теги</label>
+                <input type="text" id="form_tags" name="tags" class="form-control" placeholder="Введите теги" value="{{ old('tags', $article->tags->pluck('name')->implode(',')) }}">
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <br>
+
     <div class="row">
         <div class="col-md-12">
             <input type="submit" class="btn btn-success btn-send" value="{{ $button }} статью">

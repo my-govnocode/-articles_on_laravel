@@ -22,7 +22,7 @@ class Article extends Model
         'updated_at'
     ];
 
-    
+
 
 
     public function tags()

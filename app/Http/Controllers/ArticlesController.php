@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateArticleRequest;
 use App\Models\Article;
-use Illuminate\Http\Request;
+use App\Models\Tag;
+use App\Services\TagsSynchronizer;
 
 class ArticlesController extends Controller
 {
@@ -26,9 +27,14 @@ class ArticlesController extends Controller
         return view('articles.create', compact('article'));
     }
 
-    public function store(CreateArticleRequest $request)
+    public function store(CreateArticleRequest $request, TagsSynchronizer $tagsSynchronizer)
     {
-        Article::create($request->validated());
+        $data = $request->validated();
+        $article =  Article::create($data);
+
+        if (isset($data['tags']) && !empty($data['tags'])) {
+            $tagsSynchronizer->sync($data['tags'], $article);
+        }
 
         return redirect()->route('articles')->with('success', 'Статья успешно создана!');
     }
@@ -38,9 +44,13 @@ class ArticlesController extends Controller
         return view('articles.edit', compact('article'));
     }
 
-    public function update(CreateArticleRequest $request, Article $article)
+    public function update(CreateArticleRequest $request, Article $article, TagsSynchronizer $tagsSynchronizer)
     {
-        $article->update($request->validated());
+        $data = $request->validated();
+        $article->update($data);
+        if (isset($data['tags']) && !empty($data['tags'])) {
+            $tagsSynchronizer->sync($data['tags'], $article);
+        }
 
         return redirect()->route('articles')->with('success', 'Статья успешно обновлена!');
     }

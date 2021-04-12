@@ -11,6 +11,7 @@
                 </h3>
                 <div class="mb-1 text-muted">{{$article->created_at->toFormattedDateString()}}</div>
                 <p class="card-text mb-auto">{{$article->message}}</p>
+                @include('layouts.tags', ['tags' => $article->tags])
                 <a href="{{ route('articles.edit', $article->code) }}">Редактировать</a>
                 <form action="{{ route('articles.destroy', $article->code) }}" method="post">
                     @csrf

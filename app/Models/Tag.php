@@ -9,8 +9,20 @@ class Tag extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function articles()
     {
-        return $this->belongsToMany(Article::class, 'tag_article','article_ids','id',  'tag_id', 'id',);
+        return $this->belongsToMany(Article::class, ArticleTag::class, 'tag_id', 'article_id', 'id', 'id');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
+    public static function tagsCloud()
+    {
+        return Tag::has('articles')->get();
     }
 }
