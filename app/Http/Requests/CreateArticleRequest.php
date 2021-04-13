@@ -4,7 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateArticleRequest extends FormRequest {
+class CreateArticleRequest extends FormRequest
+{
     public function authorize()
     {
         return true;
@@ -17,6 +18,7 @@ class CreateArticleRequest extends FormRequest {
             'title' => 'required|between:5,100',
             'short_message' => 'required|max:255',
             'message' => 'required',
+            'tags' => 'nullable|string'
         ];
 
         if ($this->route()->named('articles.update')) {
