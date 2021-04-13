@@ -3,10 +3,11 @@
 namespace App\Services;
 
 use App\Models\Tag;
+use App\InterfacesModels\TagsCommunicationType;
 
 class TagsSynchronizer
 {
-  public function sync( $tags, $model)
+  public function sync( $tags, TagsCommunicationType $model)
   {
         $articleTags = $model->tags->keyBy('name');
 
