@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateArticleRequest;
 use App\Models\Article;
-use App\Models\Tag;
 use App\Services\TagsSynchronizer;
 
 class ArticlesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:update,article')->except(['index', 'store', 'create']);
+    }
+
     public function index(Article $article)
     {
-        $articles = $article->with('tags')->latest()->get();
+        $articles = auth()->user()->articles()->with('tags')->latest()->get();
         return view('articles.index', compact('articles'));
     }
 
@@ -30,6 +35,7 @@ class ArticlesController extends Controller
     public function store(CreateArticleRequest $request, TagsSynchronizer $tagsSynchronizer)
     {
         $data = $request->validated();
+        $data['owner_id'] = auth()->id();
         $article =  Article::create($data);
 
         if (isset($data['tags']) && !empty($data['tags'])) {

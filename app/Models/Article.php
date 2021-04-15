@@ -15,6 +15,7 @@ class Article extends Model implements TagsCommunicationType
      */
     protected $fillable = [
         'id',
+        'owner_id',
         'code',
         'title',
         'short_message',
