@@ -30,5 +30,3 @@ Route::get('/contacts', [FeedbacksController::class, 'create'])->name('contacts'
 
 
 Route::post('/contacts', [FeedbacksController::class, 'store'])->name('contacts');
-
-Auth::routes();

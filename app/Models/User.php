@@ -39,15 +39,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function articles()
-    {
-        return $this->hasMany(Article::class, 'owner_id');
-    }
-
-    public function routeNotificationForMail($notification)
-    {
-        // Return email address only...
-        return env('MAIL_ADMIN');
-    }
 }

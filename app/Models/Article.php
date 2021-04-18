@@ -4,15 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\InterfacesModels\TagsCommunicationType;
-use App\Events\ArticleCreated;
 
 class Article extends Model implements TagsCommunicationType
 {
     protected $table = 'articles';
-    protected $dispatchEvents = [
-        'created' => ArticleCreated::class,
-    ];
-    
     /**
      * The attributes that are mass assignable.
      *
@@ -20,7 +15,6 @@ class Article extends Model implements TagsCommunicationType
      */
     protected $fillable = [
         'id',
-        'owner_id',
         'code',
         'title',
         'short_message',
