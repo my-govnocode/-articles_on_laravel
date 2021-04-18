@@ -49,17 +49,4 @@ class ArticleCreationCompleted extends Notification
                     ->line("Текст: " . $this->article->message)
                     ->action('Статья', url('/articles/' . $this->article->code));
     }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
-    }
 }

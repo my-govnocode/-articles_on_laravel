@@ -48,17 +48,4 @@ class ArticleDeleteCompleted extends Notification
                     ->line("Описание: " . $this->article->short_message)
                     ->line("Текст: " . $this->article->message);
     }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
-    }
 }
