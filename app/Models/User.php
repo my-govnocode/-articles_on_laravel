@@ -44,4 +44,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class, 'owner_id');
     }
+
+    public function routeNotificationForMail($notification)
+    {
+        // Return email address only...
+        return env('MAIL_ADMIN');
+    }
 }
