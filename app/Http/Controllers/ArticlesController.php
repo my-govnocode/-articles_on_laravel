@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateArticleRequest;
 use App\Models\Article;
 use App\Services\TagsSynchronizer;
+use App\Events\ArticleAction;
 
 class ArticlesController extends Controller
 {
@@ -37,6 +38,7 @@ class ArticlesController extends Controller
         $data = $request->validated();
         $data['owner_id'] = auth()->id();
         $article =  Article::create($data);
+        event(new ArticleAction($article, ArticleAction::CREATED));
 
         if (isset($data['tags']) && !empty($data['tags'])) {
             $tagsSynchronizer->sync($data['tags'], $article);
@@ -54,6 +56,7 @@ class ArticlesController extends Controller
     {
         $data = $request->validated();
         $article->update($data);
+        event(new ArticleAction($article, ArticleAction::UPDATED));
         if (isset($data['tags']) && !empty($data['tags'])) {
             $tagsSynchronizer->sync($data['tags'], $article);
         }
@@ -64,7 +67,9 @@ class ArticlesController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
-
+        event(new ArticleAction($article, ArticleAction::DELETED));
         return redirect()->route('articles')->with('success', 'Статья успешно удалена!');
     }
+
+
 }
