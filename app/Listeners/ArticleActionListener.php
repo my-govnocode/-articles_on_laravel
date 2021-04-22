@@ -3,18 +3,19 @@
 namespace App\Listeners;
 
 use App\Events\ArticleCreated;
+use App\Interfaces\IActionMail;
 use App\Mail\ArticleCreated as MailArticleCreated;
 use Illuminate\Support\Facades\Mail;
 
-class SendArticleCreatedNotification
+class ArticleActionListener
 {
     /**
      * Handle the event.
      *
-     * @param  ArticleCreated  $event
+     * @param  IActionMail $event
      * @return void
      */
-    public function handle(ArticleCreated $event)
+    public function handle(IActionMail $event)
     {
         $mail = config('app.MAIL_ADMIN');
 
@@ -22,6 +23,6 @@ class SendArticleCreatedNotification
             return;
         }
 
-        Mail::to(config('app.MAIL_ADMIN'))->send(new MailArticleCreated($event->article));
+        Mail::to($mail)->send($event->toMail());
     }
 }
