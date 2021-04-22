@@ -10,6 +10,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -43,11 +44,5 @@ class User extends Authenticatable
     public function articles()
     {
         return $this->hasMany(Article::class, 'owner_id');
-    }
-
-    public function routeNotificationForMail($notification)
-    {
-        // Return email address only...
-        return env('MAIL_ADMIN');
     }
 }

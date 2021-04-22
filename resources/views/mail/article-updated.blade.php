@@ -1,9 +1,10 @@
 @component('mail::message')
-# Создана новая статья. 
+# Статья обновлена.
 
 # Название: {{ $article->title }}
 
-{{ $article->short_message }}
+# Описание:  {{ $article->short_message }}
+# Текст: {{ $article->message }}
 
 @component('mail::button', ['url' => route('articles.show', $article->code)])
 Посмотреть Задачу

@@ -230,4 +230,7 @@ return [
 
     ],
 
+
+    'MAIL_ADMIN' => env('MAIL_ADMIN', "")
+
 ];
