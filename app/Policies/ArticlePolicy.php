@@ -53,7 +53,7 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article)
     {
-        return $user->id == $article->owner_id;
+        return $user->id == $article->owner_id || $user->isAdmin();
     }
 
     /**
@@ -65,7 +65,7 @@ class ArticlePolicy
      */
     public function delete(User $user, Article $article)
     {
-        //
+        return $user->id == $article->owner_id || $user->isAdmin();
     }
 
     /**

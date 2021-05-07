@@ -10,7 +10,7 @@ class FeedbacksController extends Controller
     public function index(Feedback $feedback)
     {
         $adminBlogs = $feedback->latest()->get();
-        return view('admin.index', compact('adminBlogs'));
+        return view('admin.feedbacks', compact('adminBlogs'));
     }
 
     public function create()
