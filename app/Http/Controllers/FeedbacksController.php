@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Feedback;
-use Illuminate\Http\Request;
 
 class FeedbacksController extends Controller
 {
     public function index(Feedback $feedback)
     {
-        $adminBlogs = $feedback->latest()->get();
-        return view('admin.feedbacks', compact('adminBlogs'));
+        $feedbacks = $feedback->latest()->get();
+        return view('feedbacks', compact('feedbacks'));
     }
 
     public function create()
@@ -25,6 +24,6 @@ class FeedbacksController extends Controller
             'message' => 'required',
         ]));
 
-        return redirect('/contacts');
+        return redirect('/contacts')->with('success', 'Отзыв успешно отправлен!');
     }
 }

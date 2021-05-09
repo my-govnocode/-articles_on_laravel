@@ -5,7 +5,9 @@
 @section('contents')
     <h3>Статьи</h3>
     @if (Session::has('success'))
-        <h4 style="color: green;">{{ Session::get('success') }}</h4>
+    <div class="alert alert-success" role="alert">
+        {{ Session::get('success') }}
+    </div>
     @endif
     @foreach($articles as $article)
         <div class="col-md-12">
@@ -18,7 +20,11 @@
                     <p class="card-text mb-auto">{{$article->short_message}}</p>
                     @include('layouts.tags', ['tags' => $article->tags])
                     <a href="{{ route('articles.edit', $article->code) }}">Редактировать</a>
-                    <a href="{{ route('admin.approved', $article->code) }}">{{ $arr[$article->approved] }}</a>
+                    <form action="{{ route('admin.approved', $article->code) }}" method="post">
+                            @csrf
+                            <button>{{$article->approved?'Снять с публикации':'Опубликовать'}}</button>
+                        </form>
+                    <!-- <a href="{{ route('admin.approved', $article->code) }}">{{$article->approved?'Снять с публикации':'Опубликовать'}}</a> -->
                 </div>
             </div>
         </div>

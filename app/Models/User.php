@@ -10,7 +10,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
@@ -33,6 +32,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $attributes = [
+        'role' => 2,
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -49,6 +52,6 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->role == 2;
+        return $this->role == 1;
     }
 }

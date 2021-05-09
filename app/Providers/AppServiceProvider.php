@@ -33,11 +33,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Blade::directive('admin', function($content) {
-            $route = route("admin.index");
             if (auth()->check() && auth()->user()->isAdmin()) {
-            return '<a class="p-2 text-muted" href="' . $route . '">' . $content . '</a>';
+                return $content;
             }
-            return abort(404);
         });
     }
 }

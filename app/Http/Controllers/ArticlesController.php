@@ -12,7 +12,7 @@ class ArticlesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:update,article')->except(['index', 'store', 'create']);
+        $this->authorizeResource(Article::class, 'article');
     }
 
     public function index(Article $article)
@@ -24,10 +24,7 @@ class ArticlesController extends Controller
     public function show(Article $article)
     {
         $tags = $article->tags;
-        if (auth()->user()->id == $article->owner_id || $article->approved == true || auth()->user()->isAdmin()) {
         return view('articles.show', compact('article', 'tags'));
-        }
-        return abort(404);
     }
 
     public function create()

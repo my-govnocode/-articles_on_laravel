@@ -10,7 +10,13 @@
 
             <div class="col-lg-8 col-lg-offset-2">
 
-                <h3>Добавить статью</h3>
+                <h3>Оставить отзыв</h3>
+
+                @if (Session::has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ Session::get('success') }}
+                </div>
+                @endif
 
                 <form id="contact-form" method="post" action="{{ route('contacts') }}">
                     @csrf

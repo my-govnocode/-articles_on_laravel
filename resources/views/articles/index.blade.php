@@ -5,7 +5,9 @@
 @section('contents')
     <h3>Статьи</h3>
     @if (Session::has('success'))
-        <h4 style="color: green;">{{ Session::get('success') }}</h4>
+    <div class="alert alert-success" role="alert">
+        {{ Session::get('success') }}
+    </div>
     @endif
     @foreach($articles as $article)
             <div class="col-md-12">

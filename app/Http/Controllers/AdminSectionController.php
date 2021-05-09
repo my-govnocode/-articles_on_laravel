@@ -14,9 +14,8 @@ class AdminSectionController extends Controller
 
     public function index(Article $article)
     {
-        $arr = ["Опубликовать", "Снять с публикации"];
         $articles = $article->with('tags')->latest()->get();
-        return view('admin.index', compact(['articles', 'arr']));
+        return view('admin.index', compact(['articles']));
     }
 
     public function approved(Article $article)
