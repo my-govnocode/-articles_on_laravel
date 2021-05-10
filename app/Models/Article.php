@@ -25,6 +25,7 @@ class Article extends Model implements TagsCommunicationType
         'title',
         'short_message',
         'message',
+        'approved',
         'created_at',
         'updated_at'
     ];

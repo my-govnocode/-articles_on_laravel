@@ -12,13 +12,18 @@
                 <div class="mb-1 text-muted">{{$article->created_at->toFormattedDateString()}}</div>
                 <p class="card-text mb-auto">{{$article->message}}</p>
                 @include('layouts.tags', ['tags' => $article->tags])
+
+                @can('update', $article)
                 <a href="{{ route('articles.edit', $article->code) }}">Редактировать</a>
+                @endcan
+                @can('delete', $article)
                 <form action="{{ route('articles.destroy', $article->code) }}" method="post">
                     @csrf
                     @method('DELETE')
-
-                    <button type="submit">Удалить</button>
+                    <button>Удалить</button>
                 </form>
+                @endcan
+
             </div>
         </div>
     </div>

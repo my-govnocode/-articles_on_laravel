@@ -10,7 +10,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-
     /**
      * The attributes that are mass assignable.
      *
@@ -20,6 +19,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,5 +44,10 @@ class User extends Authenticatable
     public function articles()
     {
         return $this->hasMany(Article::class, 'owner_id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->role == Role::where('name','admin')->value('id');
     }
 }

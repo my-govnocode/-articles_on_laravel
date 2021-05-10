@@ -12,12 +12,12 @@ class ArticlesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('can:update,article')->except(['index', 'store', 'create']);
+        $this->authorizeResource(Article::class, 'article');
     }
 
     public function index(Article $article)
     {
-        $articles = auth()->user()->articles()->with('tags')->latest()->get();
+        $articles = $article->where('approved', '=', true)->with('tags')->latest()->get();
         return view('articles.index', compact('articles'));
     }
 
@@ -43,8 +43,7 @@ class ArticlesController extends Controller
         if (isset($data['tags']) && !empty($data['tags'])) {
             $tagsSynchronizer->sync($data['tags'], $article);
         }
-
-        return redirect()->route('articles')->with('success', 'Статья успешно создана!');
+        return redirect()->route('articles.index')->with('success', 'Статья успешно создана!');
     }
 
     public function edit(Article $article)
@@ -61,15 +60,13 @@ class ArticlesController extends Controller
             $tagsSynchronizer->sync($data['tags'], $article);
         }
 
-        return redirect()->route('articles')->with('success', 'Статья успешно обновлена!');
+        return redirect()->route('articles.index')->with('success', 'Статья успешно обновлена!');
     }
 
     public function destroy(Article $article)
     {
         $article->delete();
         event(new ArticleAction($article, ArticleAction::DELETED));
-        return redirect()->route('articles')->with('success', 'Статья успешно удалена!');
+        return redirect()->route('articles.index')->with('success', 'Статья успешно удалена!');
     }
-
-
 }
