@@ -32,10 +32,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $attributes = [
-        'role' => 2,
-    ];
-
     /**
      * The attributes that should be cast to native types.
      *
@@ -52,6 +48,6 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->role == 1;
+        return $this->role == Role::where('name','admin')->value('id');
     }
 }

@@ -32,10 +32,8 @@ class AppServiceProvider extends ServiceProvider
             $view->with('tagsCloud', Tag::tagsCloud());
         });
 
-        Blade::directive('admin', function($content) {
-            if (auth()->check() && auth()->user()->isAdmin()) {
-                return $content;
-            }
+        Blade::if('admin', function() {
+            return auth()->check() && auth()->user()->isAdmin();
         });
     }
 }

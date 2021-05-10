@@ -20,15 +20,17 @@
                         <p class="card-text mb-auto">{{$article->short_message}}</p>
                         
                         @include('layouts.tags', ['tags' => $article->tags])
-
-                        @if(auth()->user()->id == $article->owner_id)
+                        
+                        @can('update', $article)
                         <a href="{{ route('articles.edit', $article->code) }}">Редактировать</a>
+                        @endcan
+                        @can('delete', $article)
                         <form action="{{ route('articles.destroy', $article->code) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button>Удалить</button>
                         </form>
-                        @endif
+                        @endcan
                     </div>
                 </div>
             </div>

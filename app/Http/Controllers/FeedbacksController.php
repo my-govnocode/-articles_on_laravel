@@ -24,6 +24,6 @@ class FeedbacksController extends Controller
             'message' => 'required',
         ]));
 
-        return redirect('/contacts')->with('success', 'Отзыв успешно отправлен!');
+        return redirect(route('contacts'))->with('success', 'Отзыв успешно отправлен!');
     }
 }

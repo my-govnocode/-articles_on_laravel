@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class CreateUsersOnRoleAdmin extends Migration
@@ -17,8 +18,8 @@ class CreateUsersOnRoleAdmin extends Migration
                 [
                     'name' => 'admin',
                     'email' => env('MAIL_ADMIN'),
-                    'role' => 1,
-                    'password' => Hash::make(12345678),               
+                    'role' => Role::where('name','admin')->value('id'),
+                    'password' => Hash::make(12345678),         
                 ],
         );
     }
