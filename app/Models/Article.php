@@ -5,9 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\InterfacesModels\TagsCommunicationType;
 use App\Events\ArticleCreated;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Article extends Model implements TagsCommunicationType
 {
+    use HasFactory;
+
     protected $table = 'articles';
     protected $dispatchEvents = [
         'created' => ArticleCreated::class,
