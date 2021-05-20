@@ -11,12 +11,14 @@ use Carbon\Carbon;
 
 class DistributionOfArticles extends Command
 {
+    private $to;
+    private $from;
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:distribution_of_articles {time=7}';
+    protected $signature = 'command:distribution_of_articles {from?} {to?}';
 
     /**
      * The console command description.
@@ -33,6 +35,8 @@ class DistributionOfArticles extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->from = Carbon::today()->subDays(7)->toDateString();
+        $this->to = Carbon::today()->toDateString();
     }
 
     /**
@@ -43,8 +47,13 @@ class DistributionOfArticles extends Command
     public function handle()
     {
         $users = User::all();
-        $time = $this->argument('time');
-        $articles = Article::whereDate('created_at', '<', Carbon::now()->subDays(-$time)->toDateString())->get();
+        $from = $this->argument('from')?:$this->from;
+        $to = $this->argument('to')?:$this->to;
+        $articles = Article::whereBetween('created_at', [
+            $from,
+            $to
+        ])->get();
+
         foreach ($users as $user) {
             Mail::to($user->email)->send(new NewArticle($articles));
         }

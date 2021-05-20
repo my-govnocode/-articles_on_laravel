@@ -25,7 +25,7 @@ class ArticleFactory extends Factory
     public function definition()
     {
         return [
-            'owner_id' => null,
+            'owner_id' => User::factory(),
             'code' => $this->faker->unique()->text(5),
             'title' => $this->faker->title(),
             'short_message' => $this->faker->words(10, true),
