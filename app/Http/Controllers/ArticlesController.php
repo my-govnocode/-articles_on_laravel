@@ -6,7 +6,6 @@ use App\Http\Requests\CreateArticleRequest;
 use App\Models\Article;
 use App\Services\TagsSynchronizer;
 use App\Events\ArticleAction;
-use App\Services\Pushall;
 
 class ArticlesController extends Controller
 {
@@ -34,13 +33,12 @@ class ArticlesController extends Controller
         return view('articles.create', compact('article'));
     }
 
-    public function store(CreateArticleRequest $request, TagsSynchronizer $tagsSynchronizer, Pushall $pushall)
+    public function store(CreateArticleRequest $request, TagsSynchronizer $tagsSynchronizer)
     {
         $data = $request->validated();
         $data['owner_id'] = auth()->id();
         $article =  Article::create($data);
         event(new ArticleAction($article, ArticleAction::CREATED));
-        $pushall->send($data['title'], $data['message'], route('articles.show', $article->code));
 
         if (isset($data['tags']) && !empty($data['tags'])) {
             $tagsSynchronizer->sync($data['tags'], $article);
