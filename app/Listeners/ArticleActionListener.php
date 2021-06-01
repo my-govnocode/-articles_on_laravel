@@ -2,9 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\ArticleCreated;
 use App\Interfaces\IActionMail;
-use App\Mail\ArticleCreated as MailArticleCreated;
 use Illuminate\Support\Facades\Mail;
 
 class ArticleActionListener
