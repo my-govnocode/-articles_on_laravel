@@ -40,4 +40,9 @@ class Article extends Model implements TagsCommunicationType
     {
         return $this->belongsToMany(Tag::class, 'tag_article', 'article_id', 'tag_id', 'id', 'id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

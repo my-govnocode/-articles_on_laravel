@@ -27,4 +27,45 @@
             </div>
         </div>
     </div>
+
+<h5>Написать коментарий</h5>
+@if (Session::has('success'))
+    <div class="alert alert-success" role="alert">
+        {{ Session::get('success') }}
+    </div>
+    @endif
+        <form action="{{ route('articles.show', $article->code) }}" method="post">
+        @csrf
+
+        <div class="messages"></div>
+
+        <div class="controls">
+
+            @include('errors')
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <textarea id="form_email" type="text" name="body" class="form-control" placeholder="Введите текст"></textarea>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <button class="btn btn-success btn-send">Отправить коментарий</button>
+
+        </div>
+
+    </form> <br><br>
+
+<h5>Коментарии</h5> <br>
+    @foreach($comments as $comment)
+        <div style="border: solid 1px blue; border-radius: 5px;">
+            <div class="mb-1 text-muted">{{$comment->created_at->toFormattedDateString()}}</div>
+            <h5>{{ $comment->owner_email}}</h5>
+            {{$comment->body}}
+        </div><br>
+    @endforeach
 @endsection

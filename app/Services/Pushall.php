@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 
 class Pushall
 {
@@ -28,8 +29,8 @@ class Pushall
       "url" => $url
     ];  
 
-      $client = new Client(['base_uri' => $this->url, 'verify'  =>  false]);
+    $client = new Client(['base_uri' => $this->url, 'verify'  =>  false]);
 
-      return $client->post('', ['form_params' => $data]);
+    return $client->post('', ['form_params' => $data]);
   }
 }
