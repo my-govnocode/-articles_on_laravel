@@ -34,7 +34,7 @@
         {{ Session::get('success') }}
     </div>
     @endif
-        <form action="{{ route('articles.show', $article->code) }}" method="post">
+        <form action="{{ route('comments.store', $article->code) }}" method="post">
         @csrf
 
         <div class="messages"></div>
@@ -64,7 +64,7 @@
     @foreach($comments as $comment)
         <div style="border: solid 1px blue; border-radius: 5px;">
             <div class="mb-1 text-muted">{{$comment->created_at->toFormattedDateString()}}</div>
-            <h5>{{ $comment->owner_email}}</h5>
+            <h5>{{$comment->user->email}}</h5>
             {{$comment->body}}
         </div><br>
     @endforeach

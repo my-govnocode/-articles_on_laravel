@@ -6,7 +6,6 @@ use App\Http\Requests\CreateArticleRequest;
 use App\Models\Article;
 use App\Services\TagsSynchronizer;
 use App\Events\ArticleAction;
-use App\Models\Comment;
 use App\Services\Pushall;
 
 class ArticlesController extends Controller
@@ -23,10 +22,10 @@ class ArticlesController extends Controller
         return view('articles.index', compact('articles'));
     }
 
-    public function show(Article $article, Comment $comment)
+    public function show(Article $article)
     {
         $tags = $article->tags;
-        $comments = $comment->where('article_id', $article->id)->latest()->get();
+        $comments = $article->comments->sortByDesc('created_at');
         return view('articles.show', compact('article', 'tags', 'comments'));
     }
 

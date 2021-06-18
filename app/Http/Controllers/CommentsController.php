@@ -14,9 +14,9 @@ class CommentsController extends Controller
         'body' => 'required',
        ]);
        $data['article_id'] = $article->id;
-       $data['owner_email'] = auth()->user()->email;
+       $data['owner_id'] = auth()->user()->id;
 
-    Comment::create($data);
+      Comment::create($data);
 
     return redirect(route('articles.show', compact('article')))->with('success', 'Коментарий успешно оставлен!');
    }

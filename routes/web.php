@@ -30,6 +30,6 @@ Route::get('/contacts', [FeedbacksController::class, 'create'])->name('contacts'
 
 Route::post('/contacts', [FeedbacksController::class, 'store'])->name('contacts');
 
-Route::post('/articles/{article:code}', [CommentsController::class, 'store']);
+Route::post('/articles/{article:code}', [CommentsController::class, 'store'])->name('comments.store');
 
 Auth::routes();
