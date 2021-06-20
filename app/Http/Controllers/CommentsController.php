@@ -16,7 +16,7 @@ class CommentsController extends Controller
        $data['article_id'] = $article->id;
        $data['owner_id'] = auth()->user()->id;
 
-      Comment::create($data);
+       $article->comments()->create($data);
 
     return redirect(route('articles.show', compact('article')))->with('success', 'Коментарий успешно оставлен!');
    }
