@@ -5,6 +5,7 @@ use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\FeedbacksController;
 use App\Http\Controllers\AdminSectionController;
 use App\Http\Controllers\TagsController;
+use App\Http\Controllers\CommentsController;
 
 Route::get('/', [ArticlesController::class, 'index']);
 
@@ -28,5 +29,7 @@ Route::get('/feedback', [FeedbacksController::class, 'index'])->name('feedback.i
 Route::get('/contacts', [FeedbacksController::class, 'create'])->name('contacts');
 
 Route::post('/contacts', [FeedbacksController::class, 'store'])->name('contacts');
+
+Route::post('/articles/{article:code}', [CommentsController::class, 'store'])->name('comments.store');
 
 Auth::routes();

@@ -25,7 +25,8 @@ class ArticlesController extends Controller
     public function show(Article $article)
     {
         $tags = $article->tags;
-        return view('articles.show', compact('article', 'tags'));
+        $comments = $article->comments->sortByDesc('created_at');
+        return view('articles.show', compact('article', 'tags', 'comments'));
     }
 
     public function create()
