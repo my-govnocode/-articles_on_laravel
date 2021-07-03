@@ -55,8 +55,16 @@
             <br>
 
             <button class="btn btn-success btn-send">Отправить коментарий</button>
-
         </div>
+        
+        @forelse($history as $item)
+        <br><hr>
+            <p5>{{$item->email}} - {{$item->pivot->created_at}}</p5><br>
+            <p5>Было - {{$item->pivot->before}}</p5><br>
+            <p5>Стало - {{$item->pivot->after}}</p5><br>
+        @empty
+        <p>Нет изменений.</p>
+        @endforelse
 
     </form> <br><br>
 

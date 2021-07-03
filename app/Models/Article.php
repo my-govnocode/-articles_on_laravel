@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\InterfacesModels\TagsCommunicationType;
 use App\Events\ArticleCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use Illuminate\Support\Arr;
 
 class Article extends Model implements TagsCommunicationType
 {
@@ -33,8 +35,18 @@ class Article extends Model implements TagsCommunicationType
         'updated_at'
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
 
-
+        static::updating(function ($article) {
+            $after = $article->getDirty();
+            $article->history()->attach(auth()->user()->id, [
+                'before' => json_encode(Arr::only($article->fresh()->toArray(), array_keys($after))),
+                'after' => json_encode($after),
+            ]);
+        });
+    }
 
     public function tags()
     {
@@ -44,5 +56,10 @@ class Article extends Model implements TagsCommunicationType
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function history()
+    {
+        return $this->belongsToMany(User::class, 'article_histories')->withPivot('before', 'after')->withTimestamps();
     }
 }

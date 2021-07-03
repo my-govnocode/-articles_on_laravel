@@ -24,7 +24,6 @@
                             @csrf
                             <button>{{$article->approved?'Снять с публикации':'Опубликовать'}}</button>
                         </form>
-                    <!-- <a href="{{ route('admin.approved', $article->code) }}">{{$article->approved?'Снять с публикации':'Опубликовать'}}</a> -->
                 </div>
             </div>
         </div>
