@@ -26,7 +26,8 @@ class ArticlesController extends Controller
     {
         $tags = $article->tags;
         $comments = $article->comments->sortByDesc('created_at');
-        return view('articles.show', compact('article', 'tags', 'comments'));
+        $history = $article->history;
+        return view('articles.show', compact('article', 'tags', 'comments', 'history'));
     }
 
     public function create()
