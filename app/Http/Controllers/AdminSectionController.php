@@ -19,7 +19,7 @@ class AdminSectionController extends Controller
 
     public function news(News $news)
     {
-        $news = $news->latest()->paginate(20); 
+        $news = $news->latest()->paginate(20);
         return view('admin.news', compact(['news']));
     }
 
@@ -29,19 +29,19 @@ class AdminSectionController extends Controller
         return view('admin.articles', compact(['articles']));
     }
 
-    public function approved_artile(Article $article)
+    public function approvedArtile(Article $article)
     {
         $article->approved = !($article->approved);
-        $article->update();
-        $message = $article->approved?'Статья опубликована!':'Статья снята с публикации!';
+        $article->save();
+        $message = $article->approved ? 'Статья опубликована!' : 'Статья снята с публикации!';
         return redirect()->route('admin.articles')->with('success', $message);
     }
 
-    public function approved_news(News $news)
+    public function approvedNews(News $news)
     {
         $news->approved = !($news->approved);
-        $news->update();
-        $message = $news->approved?'Статья опубликована!':'Статья снята с публикации!';
+        $news->save();
+        $message = $news->approved ? 'Статья опубликована!' : 'Статья снята с публикации!';
         return redirect()->route('admin.news')->with('success', $message);
     }
 }

@@ -27,8 +27,8 @@ Route::get('/about', function () {
 Route::prefix('/admin')->group(function() {
     Route::get('/', [AdminSectionController::class, 'index'])->name('admin.index');
     Route::get('/articles', [AdminSectionController::class, 'articles'])->name('admin.articles');
-    Route::post('/articles/{article:code}/approved/', [AdminSectionController::class, 'approved_article'])->name('admin.article.approved');
-    Route::post('/news/{news:code}/approved/', [AdminSectionController::class, 'approved_news'])->name('admin.news.approved');
+    Route::post('/articles/{article:code}/approved/', [AdminSectionController::class, 'approvedArticle'])->name('admin.article.approved');
+    Route::post('/news/{news:code}/approved/', [AdminSectionController::class, 'approvedNews'])->name('admin.news.approved');
     Route::get('/news', [AdminSectionController::class, 'news'])->name('admin.news');
 });
 

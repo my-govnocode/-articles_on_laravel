@@ -16,8 +16,8 @@ class CreateNewsTable extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('owner_id')->index()->nullable();
-            $table->text('code');
-            $table->text('title');
+            $table->string('code', 100);
+            $table->string('title', 100);
             $table->text('short_message');
             $table->text('message');
             $table->boolean('approved')->default(false);

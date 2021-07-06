@@ -10,7 +10,7 @@
 
             <div class="col-lg-8 col-lg-offset-2">
 
-                <h3>Редактировать статью</h3>
+                <h3>Редактировать новость</h3>
 
                 <form id="contact-form" method="post" action="{{ route('news.show', $news->code) }}">
                     @csrf
