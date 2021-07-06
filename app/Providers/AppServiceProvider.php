@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Services\TagsSynchronizer;
 use App\Models\Tag;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Paginator::defaultView('vendor.pagination.bootstrap-4');
         view()->composer('layouts.sidebar', function ($view) {
             $view->with('tagsCloud', Tag::tagsCloud());
         });

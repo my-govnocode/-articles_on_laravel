@@ -35,4 +35,5 @@
                 </div>
             </div>
     @endforeach
+    {{$articles->onEachSide(3)->links()}}
 @endsection

@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Create Articles')
+@section('title', 'Create News')
 
 @section('contents')
 
@@ -10,12 +10,12 @@
 
             <div class="col-lg-8 col-lg-offset-2">
 
-                <h3>Добавить статью</h3>
+                <h3>Добавить новость</h3>
 
-                <form id="contact-form" method="post" action="{{ route('articles.index') }}">
+                <form id="contact-form" method="post" action="{{ route('news.index') }}">
                     @csrf
 
-                    @include('layouts.form_article', ['button' => 'Создать'])
+                    @include('layouts.form_news', ['button' => 'Создать'])
 
                 </form>
 

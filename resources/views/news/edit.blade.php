@@ -10,12 +10,13 @@
 
             <div class="col-lg-8 col-lg-offset-2">
 
-                <h3>Добавить статью</h3>
+                <h3>Редактировать статью</h3>
 
-                <form id="contact-form" method="post" action="{{ route('articles.index') }}">
+                <form id="contact-form" method="post" action="{{ route('news.show', $news->code) }}">
                     @csrf
+                    @method('PATCH')
 
-                    @include('layouts.form_article', ['button' => 'Создать'])
+                    @include('layouts.form_news', ['button' => 'Редактировать'])
 
                 </form>
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-
+use App\Models\News;
 
 class AdminSectionController extends Controller
 {
@@ -12,18 +12,36 @@ class AdminSectionController extends Controller
         $this->middleware('admin');
     }
 
-    public function index(Article $article)
+    public function index()
     {
-        $articles = $article->with('tags')->latest()->get();
-        return view('admin.index', compact(['articles']));
+        return view('admin.index');
     }
 
-    public function approved(Article $article)
+    public function news(News $news)
+    {
+        $news = $news->latest()->paginate(20); 
+        return view('admin.news', compact(['news']));
+    }
+
+    public function articles(Article $article)
+    {
+        $articles = $article->with('tags')->latest()->paginate(20);
+        return view('admin.articles', compact(['articles']));
+    }
+
+    public function approved_artile(Article $article)
     {
         $article->approved = !($article->approved);
         $article->update();
         $message = $article->approved?'Статья опубликована!':'Статья снята с публикации!';
-        return redirect()->route('admin.index')->with('success', $message);
+        return redirect()->route('admin.articles')->with('success', $message);
+    }
 
+    public function approved_news(News $news)
+    {
+        $news->approved = !($news->approved);
+        $news->update();
+        $message = $news->approved?'Статья опубликована!':'Статья снята с публикации!';
+        return redirect()->route('admin.news')->with('success', $message);
     }
 }

@@ -16,7 +16,7 @@
                     @csrf
                     @method('PATCH')
 
-                    @include('layouts.form', ['button' => 'Редактировать'])
+                    @include('layouts.form_article', ['button' => 'Редактировать'])
 
                 </form>
 

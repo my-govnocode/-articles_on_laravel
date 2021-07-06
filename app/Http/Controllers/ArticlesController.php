@@ -18,7 +18,7 @@ class ArticlesController extends Controller
 
     public function index(Article $article)
     {
-        $articles = $article->where('approved', '=', true)->with('tags')->latest()->get();
+        $articles = $article->where('approved', true)->with('tags')->latest()->paginate(10);
         return view('articles.index', compact('articles'));
     }
 
