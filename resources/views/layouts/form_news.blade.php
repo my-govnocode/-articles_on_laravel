@@ -32,7 +32,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="form_message">Краткое описание статьи</label>
+                <label for="form_message">Краткое описание новости</label>
                 <textarea id="form_message" name="short_message" class="form-control" placeholder="Введите содержание статьи" rows="4"  data-error="Содержание статьи не указано.">{{ old('short_message', $news->short_message) }}</textarea>
                 <div class="help-block with-errors"></div>
             </div>
@@ -43,13 +43,23 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="form_message">Детальное описание статьи</label>
+                <label for="form_message">Детальное описание новости</label>
                 <textarea id="form_message" name="message" class="form-control" placeholder="Введите содержание статьи" rows="4"  data-error="Содержание статьи не указано.">{{ old('message', $news->message) }}</textarea>
                 <div class="help-block with-errors"></div>
             </div>
         </div>
     </div>
     <br>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="form_tags">Теги</label>
+                <input type="text" id="form_tags" name="tags" class="form-control" placeholder="Введите теги" value="{{ old('tags', $news->tags->pluck('name')->implode(',')) }}">
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
 
     <br>
 

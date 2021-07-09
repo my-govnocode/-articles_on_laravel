@@ -18,7 +18,8 @@ Route::resource('news', NewsController::class, ['parameters' => [
     'news' => 'news:code'
 ]]);
 
-Route::get('/articles/tags/{tag}', [TagsController::class, 'index'])->name('articles.tags');
+Route::get('/taggable/{tag}', [TagsController::class, 'index'])->name('taggable');
+Route::get('/news/tags/{tag}', [TagsController::class, 'news'])->name('news.tags');
 
 Route::get('/about', function () {
     return view('about');
@@ -38,6 +39,7 @@ Route::get('/contacts', [FeedbacksController::class, 'create'])->name('contacts'
 
 Route::post('/contacts', [FeedbacksController::class, 'store'])->name('contacts');
 
-Route::post('/articles/{article:code}', [CommentsController::class, 'store'])->name('comments.store');
+Route::post('/articles/{article:code}', [CommentsController::class, 'article'])->name('comments.article');
+Route::post('/news/{news:code}', [CommentsController::class, 'news'])->name('comments.news');
 
 Auth::routes();

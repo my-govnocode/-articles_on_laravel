@@ -18,6 +18,7 @@ class CreateNewsRequest extends FormRequest
             'title' => 'required|between:5,100',
             'short_message' => 'required|max:255',
             'message' => 'required',
+            'tags' => 'nullable|string'
         ];
 
         if ($this->route()->named('news.update')) {

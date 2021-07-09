@@ -59,7 +59,7 @@ class ArticlesController extends Controller
     {
         $data = $request->validated();
         $article->update($data);
-        event(new ArticleAction($article, ArticleAction::UPDATED));
+        //event(new ArticleAction($article, ArticleAction::UPDATED));
         if (isset($data['tags']) && !empty($data['tags'])) {
             $tagsSynchronizer->sync($data['tags'], $article);
         }

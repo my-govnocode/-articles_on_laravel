@@ -3,6 +3,10 @@
 
 @section('title', 'Contacts')
 
+@section('sidebar')
+@include('layouts.without_sidebar')
+@endsection
+
 @section('contents')
     <div class="container">
 

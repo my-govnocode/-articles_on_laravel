@@ -50,12 +50,12 @@ class Article extends Model implements TagsCommunicationType
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'tag_article', 'article_id', 'tag_id', 'id', 'id');
+        return $this->morphToMany(Tag::class, 'tagable');
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function history()

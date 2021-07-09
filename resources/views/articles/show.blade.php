@@ -12,7 +12,6 @@
                 <div class="mb-1 text-muted">{{$article->created_at->toFormattedDateString()}}</div>
                 <p class="card-text mb-auto">{{$article->message}}</p>
                 @include('layouts.tags', ['tags' => $article->tags])
-
                 @can('update', $article)
                 <a href="{{ route('articles.edit', $article->code) }}">Редактировать</a>
                 @endcan
@@ -34,7 +33,7 @@
         {{ Session::get('success') }}
     </div>
     @endif
-        <form action="{{ route('comments.store', $article->code) }}" method="post">
+        <form action="{{ route('comments.article', $article->code) }}" method="post">
         @csrf
 
         <div class="messages"></div>

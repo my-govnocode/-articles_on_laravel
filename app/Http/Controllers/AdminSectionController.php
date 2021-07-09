@@ -19,7 +19,7 @@ class AdminSectionController extends Controller
 
     public function news(News $news)
     {
-        $news = $news->latest()->paginate(20);
+        $news = $news->with('tags')->latest()->paginate(20);
         return view('admin.news', compact(['news']));
     }
 

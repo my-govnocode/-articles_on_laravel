@@ -13,7 +13,12 @@ class Tag extends Model
 
     public function articles()
     {
-        return $this->belongsToMany(Article::class, 'tag_article', 'tag_id', 'article_id', 'id', 'id');
+        return $this->morphedByMany(Article::class, 'tagable');
+    }
+
+    public function news()
+    {
+        return $this->morphedByMany(News::class, 'tagable');
     }
 
     public function getRouteKeyName()
