@@ -41,7 +41,7 @@ class AdminSectionController extends Controller
     {
         $news->approved = !($news->approved);
         $news->save();
-        $message = $news->approved ? 'Статья опубликована!' : 'Статья снята с публикации!';
+        $message = $news->approved ? 'Новость опубликована!' : 'Новость снята с публикации!';
         return redirect()->route('admin.news')->with('success', $message);
     }
 }

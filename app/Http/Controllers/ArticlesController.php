@@ -59,7 +59,7 @@ class ArticlesController extends Controller
     {
         $data = $request->validated();
         $article->update($data);
-        //event(new ArticleAction($article, ArticleAction::UPDATED));
+        event(new ArticleAction($article, ArticleAction::UPDATED));
         if (isset($data['tags']) && !empty($data['tags'])) {
             $tagsSynchronizer->sync($data['tags'], $article);
         }
@@ -72,5 +72,11 @@ class ArticlesController extends Controller
         $article->delete();
         event(new ArticleAction($article, ArticleAction::DELETED));
         return redirect()->route('articles.index')->with('success', 'Статья успешно удалена!');
+    }
+
+    public function statistic(Article $article)
+    {
+        $articles = $article->get();
+        return view('articles.statistic', compact(['articles']));
     }
 }

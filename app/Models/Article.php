@@ -62,4 +62,9 @@ class Article extends Model implements TagsCommunicationType
     {
         return $this->belongsToMany(User::class, 'article_histories')->withPivot('before', 'after')->withTimestamps();
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

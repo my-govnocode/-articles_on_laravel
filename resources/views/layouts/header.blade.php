@@ -71,6 +71,7 @@
             <a class="p-2 text-muted" href="{{ route('contacts') }}">Контакты</a>
             <a class="p-2 text-muted" href="{{ route('articles.create') }}">Добавить статью</a>
             <a class="p-2 text-muted" href="{{ route('feedback.index') }}">Отзывы</a>
+            <a class="p-2 text-muted" href="{{ route('statistic.index') }}">Статистика</a>
             @admin()
             <a class="p-2 text-muted" href="{{ route("admin.index") }}">Админ раздел</a>
             @endadmin
