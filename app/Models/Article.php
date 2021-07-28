@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\InterfacesModels\TagsCommunicationType;
+use App\InterfacesModels\CommentsCommunicationType;
 use App\Events\ArticleCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
 use Illuminate\Support\Arr;
 
-class Article extends Model implements TagsCommunicationType
+class Article extends Model implements TagsCommunicationType, CommentsCommunicationType
 {
     use HasFactory;
 

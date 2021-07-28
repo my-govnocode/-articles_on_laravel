@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Services\TagsSynchronizer;
+use App\Services\CommentsCreator;
 use App\Models\Tag;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
@@ -19,6 +20,10 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(TagsSynchronizer::class, function () {
             return new TagsSynchronizer();
+        });
+
+        $this->app->bind(CommentsCreator::class, function () {
+            return new CommentsCreator();
         });
     }
 

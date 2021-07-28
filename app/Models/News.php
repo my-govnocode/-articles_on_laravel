@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\InterfacesModels\TagsCommunicationType;
+use App\InterfacesModels\CommentsCommunicationType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Tag;
 use App\Models\Comment;
 
-class News extends Model implements TagsCommunicationType
+class News extends Model implements TagsCommunicationType, CommentsCommunicationType
 {
     use HasFactory;
     

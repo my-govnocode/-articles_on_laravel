@@ -63,7 +63,7 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        $comments = $comments = $news->comments->sortByDesc('created_at');
+        $comments = $news->comments->sortByDesc('created_at');
         return view('news.show', compact(['news', 'comments']));
     }
 
