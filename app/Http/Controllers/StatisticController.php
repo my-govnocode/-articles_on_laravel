@@ -16,14 +16,7 @@ class StatisticController extends Controller
         $articleMax = Article::select()->orderBy(DB::raw('LENGTH(message)'), 'DESC')->first();
         $articleMin = Article::select()->orderBy(DB::raw('LENGTH(message)'), 'ASC')->first();
 
-        $userWithLargeNumberArticles = User::select()
-        ->where('id', DB::table('articles')
-            ->selectRaw('count(*) as count, owner_id')
-            ->groupBy('owner_id')
-            ->orderBy('count', 'DESC')
-            ->first()
-            ->owner_id)
-        ->first();
+        $userWithLargeNumberArticles = User::whereHas('articles')->orderByDesc('articles_count')->withCount('articles')->first();
 
         $averageNumberArticles = Article::selectRaw('count(*) as count')
         ->groupBy('owner_id')
@@ -31,23 +24,9 @@ class StatisticController extends Controller
         ->get()
         ->avg('count');
 
-        $articleDiscussed = Article::select()
-        ->where('id', DB::table('comments')
-            ->selectRaw('count(*) as count, commentable_id')
-            ->groupBy('commentable_id')
-            ->orderBy('count', 'DESC')
-            ->first()
-            ->commentable_id)
-        ->first();
+        $articleDiscussed = Article::whereHas('comments')->orderByDesc('comments_count')->withCount('comments')->first();;
 
-        $articleNoPermanent = Article::select()
-        ->where('id', DB::table('article_histories')
-            ->selectRaw('count(*) as count, article_id')
-            ->groupBy('article_id')
-            ->orderBy('count', 'DESC')
-            ->first()
-            ->article_id)
-        ->first();
+        $articleNoPermanent = Article::whereHas('history')->orderByDesc('history_count')->withCount('history')->first();
 
         return view('statistic', compact(['articlesCount', 'newsCount', 'articleMax', 'articleMin', 'userWithLargeNumberArticles', 'averageNumberArticles', 'articleDiscussed', 'articleNoPermanent']));
     }
