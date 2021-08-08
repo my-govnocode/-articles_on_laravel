@@ -2,6 +2,10 @@
 
 @section('title', 'Feedbacks')
 
+@section('sidebar')
+@include('layouts.without_sidebar')
+@endsection
+
 @section('contents')
     <h3>Отзывы</h3>
     @foreach($feedbacks as $feedback)

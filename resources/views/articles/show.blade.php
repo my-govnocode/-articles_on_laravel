@@ -12,7 +12,6 @@
                 <div class="mb-1 text-muted">{{$article->created_at->toFormattedDateString()}}</div>
                 <p class="card-text mb-auto">{{$article->message}}</p>
                 @include('layouts.tags', ['tags' => $article->tags])
-
                 @can('update', $article)
                 <a href="{{ route('articles.edit', $article->code) }}">Редактировать</a>
                 @endcan
@@ -28,52 +27,31 @@
         </div>
     </div>
 
-<h5>Написать коментарий</h5>
-@if (Session::has('success'))
-    <div class="alert alert-success" role="alert">
-        {{ Session::get('success') }}
-    </div>
-    @endif
-        <form action="{{ route('comments.store', $article->code) }}" method="post">
-        @csrf
-
-        <div class="messages"></div>
-
-        <div class="controls">
-
-            @include('errors')
-
-            <div class="row">
-
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <textarea id="form_email" type="text" name="body" class="form-control" placeholder="Введите текст"></textarea>
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-            </div>
-            <br>
-
-            <button class="btn btn-success btn-send">Отправить коментарий</button>
+    <h5>Написать коментарий</h5>
+    @if (Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('success') }}
         </div>
-        
-        @forelse($history as $item)
+    @endif
+
+    @include('layouts.form_comment', ['route' => route('comments.article', $article->code)])
+
+    @forelse($history as $item)
         <br><hr>
             <p5>{{$item->email}} - {{$item->pivot->created_at}}</p5><br>
             <p5>Было - {{$item->pivot->before}}</p5><br>
             <p5>Стало - {{$item->pivot->after}}</p5><br>
         @empty
         <p>Нет изменений.</p>
-        @endforelse
+    @endforelse
+    <hr>
 
-    </form> <br><br>
-
-<h5>Коментарии</h5> <br>
-    @foreach($comments as $comment)
-        <div style="border: solid 1px blue; border-radius: 5px;">
-            <div class="mb-1 text-muted">{{$comment->created_at->toFormattedDateString()}}</div>
-            <h5>{{$comment->user->email}}</h5>
-            {{$comment->body}}
-        </div><br>
-    @endforeach
+    <h5>Коментарии</h5> <br>
+        @foreach($comments as $comment)
+            <div style="border: solid 1px blue; border-radius: 5px;">
+                <div class="mb-1 text-muted">{{$comment->created_at->toFormattedDateString()}}</div>
+                <h5>{{$comment->user->email}}</h5>
+                {{$comment->body}}
+            </div><br>
+        @endforeach
 @endsection

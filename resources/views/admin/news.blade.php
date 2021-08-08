@@ -2,10 +2,6 @@
 
 @section('title', 'News')
 
-@section('sidebar')
-@include('layouts.without_sidebar')
-@endsection
-
 @section('contents')
 <h3><a href="{{route('news.create')}}">+ Добавить новость</a></h3>
     <h3>Новости</h3>
@@ -23,7 +19,7 @@
                         </h3>
                         <div class="mb-1 text-muted">{{ $oneNews->created_at->toFormattedDateString() }}</div>
                         <p class="card-text mb-auto">{{ $oneNews->short_message }}</p>
-                                                
+                        @include('layouts.tags', ['tags' => $oneNews->tags])
                         @can('update', $oneNews)
                         <a href="{{ route('news.edit', $oneNews->code) }}">Редактировать</a>
                         @endcan

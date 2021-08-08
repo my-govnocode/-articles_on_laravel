@@ -2,10 +2,6 @@
 
 @section('title', 'News')
 
-@section('sidebar')
-@include('layouts.without_sidebar')
-@endsection
-
 @section('contents')
     <h3>Новости</h3>
     @if (Session::has('success'))
@@ -22,6 +18,7 @@
                         </h3>
                         <div class="mb-1 text-muted">{{$oneNews->created_at->toFormattedDateString()}}</div>
                         <p class="card-text mb-auto">{{$oneNews->short_message}}</p>
+                        @include('layouts.tags', ['tags' => $oneNews->tags])
                     </div>
                 </div>
             </div>

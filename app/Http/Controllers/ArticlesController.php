@@ -73,4 +73,10 @@ class ArticlesController extends Controller
         event(new ArticleAction($article, ArticleAction::DELETED));
         return redirect()->route('articles.index')->with('success', 'Статья успешно удалена!');
     }
+
+    public function statistic(Article $article)
+    {
+        $articles = $article->get();
+        return view('articles.statistic', compact(['articles']));
+    }
 }

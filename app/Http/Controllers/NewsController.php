@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateNewsRequest;
 use Illuminate\Http\Request;
 use App\Models\News;
+use App\Services\TagsSynchronizer;
 
 class NewsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class NewsController extends Controller
      */
     public function index(News $news)
     {
-        $news = $news->where('approved', true)->latest()->paginate(10);
+        $news = $news->where('approved', true)->with('tags')->latest()->paginate(10);
         return view('news.index', compact(['news']));
     }
 
@@ -36,11 +42,16 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateNewsRequest $request)
+    public function store(CreateNewsRequest $request, TagsSynchronizer $tagsSynchronizer)
     {
         $data = $request->validated();
         $data['owner_id'] = auth()->id();
-        News::create($data);
+        $news = News::create($data);
+
+        if (isset($data['tags']) && !empty($data['tags'])) {
+            $tagsSynchronizer->sync($data['tags'], $news);
+        }
+
         return redirect()->route('admin.news')->with('success', 'Новость успешно создана!');
     }
 
@@ -52,7 +63,8 @@ class NewsController extends Controller
      */
     public function show(News $news)
     {
-        return view('news.show', compact(['news']));
+        $comments = $news->comments->sortByDesc('created_at');
+        return view('news.show', compact(['news', 'comments']));
     }
 
     /**
@@ -73,10 +85,15 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CreateNewsRequest $request, News $news)
+    public function update(CreateNewsRequest $request, News $news, TagsSynchronizer $tagsSynchronizer)
     {
         $data = $request->validated();
         $news->update($data);
+
+        if (isset($data['tags']) && !empty($data['tags'])) {
+            $tagsSynchronizer->sync($data['tags'], $news);
+        }
+
         return redirect()->route('admin.news')->with('success', 'Новость успешно обновлена!');
     }
 

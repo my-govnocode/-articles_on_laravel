@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\InterfacesModels\TagsCommunicationType;
+use App\InterfacesModels\CommentsCommunicationType;
 use App\Events\ArticleCreated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\User;
 use Illuminate\Support\Arr;
 
-class Article extends Model implements TagsCommunicationType
+class Article extends Model implements TagsCommunicationType, CommentsCommunicationType
 {
     use HasFactory;
 
@@ -50,16 +51,21 @@ class Article extends Model implements TagsCommunicationType
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'tag_article', 'article_id', 'tag_id', 'id', 'id');
+        return $this->morphToMany(Tag::class, 'tagable');
     }
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function history()
     {
         return $this->belongsToMany(User::class, 'article_histories')->withPivot('before', 'after')->withTimestamps();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
