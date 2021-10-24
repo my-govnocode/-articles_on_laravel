@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticlesController;
 use App\Http\Controllers\FeedbacksController;
@@ -32,6 +33,9 @@ Route::prefix('/admin')->group(function() {
     Route::post('/articles/{article:code}/approved/', [AdminSectionController::class, 'approvedArtile'])->name('admin.article.approved');
     Route::post('/news/{news:code}/approved/', [AdminSectionController::class, 'approvedNews'])->name('admin.news.approved');
     Route::get('/news', [AdminSectionController::class, 'news'])->name('admin.news');
+    Route::get('/reports', [AdminSectionController::class, 'reports'])->name('admin.reports');
+    Route::get('/reports/totals', [AdminSectionController::class, 'totals'])->name('admin.reports.totals');
+    Route::post('/reports/totals', [AdminSectionController::class, 'totalsProccess']);
 });
 
 Route::get('/feedback', [FeedbacksController::class, 'index'])->name('feedback.index');

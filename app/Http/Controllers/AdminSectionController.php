@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\News;
+use App\Jobs\ItemCountReport;
 
 class AdminSectionController extends Controller
 {
@@ -43,5 +45,22 @@ class AdminSectionController extends Controller
         $news->save();
         $message = $news->approved ? 'Новость опубликована!' : 'Новость снята с публикации!';
         return redirect()->route('admin.news')->with('success', $message);
+    }
+
+    public function reports()
+    {
+        return view('admin.reports.index');
+    }
+
+    public function totals()
+    {
+        return view('admin.reports.totals');
+    }
+
+    public function totalsProccess(Request $request)
+    {
+        $data = $request->input();
+        ItemCountReport::dispatch($data);
+        return redirect()->route('admin.reports')->with('success', 'Отчет успешно отправлен на почту!');
     }
 }
