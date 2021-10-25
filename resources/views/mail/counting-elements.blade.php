@@ -3,7 +3,7 @@
 # Итог
 
 @foreach($data as $name => $element)
-    @if($element != null)
+    @if($element !== null)
         #{{ $name }}: {{ $element }}
     @endif
 @endforeach
