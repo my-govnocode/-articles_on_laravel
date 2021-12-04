@@ -7,6 +7,8 @@ use App\Models\Article;
 use App\Services\TagsSynchronizer;
 use App\Events\ArticleAction;
 use App\Services\Pushall;
+use App\Events\HelloAlert;
+use App\Events\ArticleChange;
 
 class ArticlesController extends Controller
 {
@@ -60,6 +62,7 @@ class ArticlesController extends Controller
         $data = $request->validated();
         $article->update($data);
         event(new ArticleAction($article, ArticleAction::UPDATED));
+        event(new ArticleChange($article));
         if (isset($data['tags']) && !empty($data['tags'])) {
             $tagsSynchronizer->sync($data['tags'], $article);
         }
